@@ -116,28 +116,29 @@
         Object.keys(data).forEach((key) => {
             let value = data[key];
             Object.defineProperty(data, key, {
-                // get: function () {
-                //   console.log("get");
-                //   return value;
-                // },
                 get: function () {
-                switch (key) {
-                    case "counter":
-                    counterEl.textContent = value;
-                    return value;
-                    case "step":
-                    stepEl.textContent = value;
-                    return value;
-                }
+                //   console.log("get");
+                  return value;
                 },
                 set: function (newValue) {
                 // console.log("set");
                 value = newValue;
+                switch (key) {
+                    case "counter":
+                        counterEl.textContent = value;
+                        break
+                    case "step":
+                        stepEl.textContent = value;
+                        break
+                }
                 queue.forEach((fn) => fn());
+
                 },
             });
         });
 
+        counterEl.textContent = data.counter;
+        stepEl.textContent = data.step;
         getSum();
 
         buttonElCounterMinus.addEventListener("click", decrementCounterHandler);
